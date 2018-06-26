@@ -56,6 +56,7 @@ class Config:
         self.auto_playlist = config.getboolean('MusicBot', 'UseAutoPlaylist', fallback=ConfigDefaults.auto_playlist)
         self.auto_playlist_random = config.getboolean('MusicBot', 'AutoPlaylistRandom', fallback=ConfigDefaults.auto_playlist_random)
         self.auto_pause = config.getboolean('MusicBot', 'AutoPause', fallback=ConfigDefaults.auto_pause)
+        self.auto_delete_playlist = config.getboolean('MusicBot', 'AutoDeletePlaylist', fallback=ConfigDefaults.auto_delete_playlist)
         self.delete_messages = config.getboolean('MusicBot', 'DeleteMessages', fallback=ConfigDefaults.delete_messages)
         self.delete_invoking = config.getboolean('MusicBot', 'DeleteInvoking', fallback=ConfigDefaults.delete_invoking)
         self.persistent_queue = config.getboolean('MusicBot', 'PersistentQueue', fallback=ConfigDefaults.persistent_queue)
@@ -319,6 +320,7 @@ class ConfigDefaults:
     auto_playlist = True
     auto_playlist_random = True
     auto_pause = True
+    auto_delete_playlist = False
     delete_messages = True
     delete_invoking = False
     persistent_queue = True

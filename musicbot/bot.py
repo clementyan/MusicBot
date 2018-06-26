@@ -1189,6 +1189,7 @@ class MusicBot(discord.Client):
             log.info("  Auto-Summon: " + ['Disabled', 'Enabled'][self.config.auto_summon])
             log.info("  Auto-Playlist: " + ['Disabled', 'Enabled'][self.config.auto_playlist] + " (order: " + ['sequential', 'random'][self.config.auto_playlist_random] + ")")
             log.info("  Auto-Pause: " + ['Disabled', 'Enabled'][self.config.auto_pause])
+            log.info("  Auto-Delete Playlist: " + ['Disabled', 'Enabled'][self.config.auto_delete_playlist])
             log.info("  Delete Messages: " + ['Disabled', 'Enabled'][self.config.delete_messages])
             if self.config.delete_messages:
                 log.info("    Delete Invoking: " + ['Disabled', 'Enabled'][self.config.delete_invoking])
@@ -2283,8 +2284,8 @@ class MusicBot(discord.Client):
         bool_y = ['on', 'y', 'enabled']
         bool_n = ['off', 'n', 'disabled']
         generic = ['save_videos', 'now_playing_mentions', 'auto_playlist_random',
-                   'auto_pause', 'delete_messages', 'delete_invoking',
-                   'write_current_song']  # these need to match attribute names in the Config class
+                   'auto_pause', 'auto_delete_playlist', 'delete_messages',
+                   'delete_invoking', 'write_current_song']  # these need to match attribute names in the Config class
         if option in ['autoplaylist', 'auto_playlist']:
             if value in bool_y:
                 if self.config.auto_playlist:
@@ -2620,6 +2621,9 @@ class MusicBot(discord.Client):
         player = self.get_player_in(channel.server)
         if player and player.is_paused:
             player.resume()
+
+        if self.config.auto_delete_playlist:
+        	player.playlist.clear()
         
         await self.disconnect_all_voice_clients()
         raise exceptions.TerminateSignal()
